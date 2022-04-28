@@ -8,4 +8,4 @@ build:
 	go build main.go
 
 add:
-	git remote set-url origin https://[token]@github.com/alagha-go/amazon.git
+	git remote add origin https://alagha-go:[token]@github.com/alagha-go/amazon.git
