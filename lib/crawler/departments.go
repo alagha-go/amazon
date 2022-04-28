@@ -18,11 +18,7 @@ func GetDepartments() []types.Department {
 
 	collector.OnHTML("body", func(element *colly.HTMLElement) {
 		element.ForEach(".hmenu.hmenu-translateX-right", func(index int, element *colly.HTMLElement) {
-			var department types.Department
-			department.ID = primitive.NewObjectID()
-			department.Title = element.ChildText(".hmenu-item.hmenu-title")
-			department.Categories = GetCategories(element)
-			Departments = append(Departments, department)
+			Departments = append(Departments, GetDepartment(element))
 		})
 	})
 
@@ -30,15 +26,20 @@ func GetDepartments() []types.Department {
 	return Departments
 }
 
-func GetCategories(element *colly.HTMLElement) []types.Category {
-	var categories []types.Category
+func GetDepartment(element *colly.HTMLElement) types.Department {
+	var Department types.Department
+	Department.ID = primitive.NewObjectID()
 	element.ForEach(".hmenu-item", func(index int, element *colly.HTMLElement){
-		var category types.Category
-		category.ID = primitive.NewObjectID()
-		category.Title = element.Text
-		category.Url = "https://amazon.com" + element.Attr("href")
-		categories = append(categories, category)
+		if index >= 2 {
+			var category types.Category
+			category.ID = primitive.NewObjectID()
+			category.Title = element.Text
+			category.Url = "https://amazon.com" + element.Attr("href")
+			Department.Categories = append(Department.Categories, category)
+		}else if index == 1 {
+			Department.Title = element.Text
+		}
 	})
 
-	return categories
+	return Department
 }
