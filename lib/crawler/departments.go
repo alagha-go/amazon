@@ -15,12 +15,14 @@ var (
 func GetDepartments() []types.Department {
 	collector := colly.NewCollector()
 	var Departments []types.Department
+
 	collector.OnHTML("body", func(element *colly.HTMLElement) {
 		element.ForEach(".hmenu.hmenu-translateX-right", func(index int, element *colly.HTMLElement) {
 			var department types.Department
 			department.ID = primitive.NewObjectID()
 			department.Title = element.ChildText(".hmenu-item.hmenu-title")
 			department.Categories = GetCategories(element)
+			Departments = append(Departments, department)
 		})
 	})
 
@@ -35,6 +37,7 @@ func GetCategories(element *colly.HTMLElement) []types.Category {
 		category.ID = primitive.NewObjectID()
 		category.Title = element.Text
 		category.Url = "https://amazon.com" + element.Attr("href")
+		categories = append(categories, category)
 	})
 
 	return categories
