@@ -42,16 +42,3 @@ func GetCategories(element *colly.HTMLElement) []types.Category {
 
 	return categories
 }
-
-// func GetSubCategories(category types.Category) []*types.SubCategory {
-
-// }
-
-// func GetTypes(subcategory types.SubCategory) []*types.Type {
-
-// }
-
-
-// func GetSubTypes(url string) []*types.SubType {
-
-// }
