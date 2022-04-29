@@ -9,16 +9,12 @@ import (
 
 
 
-func GetSubCategories(departments []types.Department) []types.Department {
-	var NewDepartments []types.Department
-	for _, department := range departments {
-		for index, category := range department.Categories {
-			department.Categories[index].SubCategories = CollectSubCategories(category)
-		}
-		NewDepartments = append(NewDepartments, department)
+func GetSubCategories(department types.Department) types.Department {
+	for index, category := range department.Categories {
+		department.Categories[index].SubCategories = CollectSubCategories(category)
 	}
 
-	return NewDepartments
+	return department
 }
 
 func CollectSubCategories(category types.Category) []types.SubCategory {
