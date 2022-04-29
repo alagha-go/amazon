@@ -30,6 +30,9 @@ func TestSubCategories(t *testing.T) {
 	if !passed {
 		t.Error("Test Failed")
 	}else {
+		data := JsonMarshal(departments)
+		err := ioutil.WriteFile("/home/ubuntu/Documents/amazon/testData/deps.json", data, 0755)
+		HandleError(err)
 		fmt.Println(numberofPassedCategories)
 	}
 }
