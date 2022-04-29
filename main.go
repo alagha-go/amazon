@@ -28,7 +28,8 @@ func main() {
 
 	go handler.Main()
 
-	http.ListenAndServe(port, nil)
+	err = http.ListenAndServe(port, nil)
+	HandleError(err)
 }
 
 
