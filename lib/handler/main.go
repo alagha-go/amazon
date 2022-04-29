@@ -5,6 +5,7 @@ import "net/http"
 
 func Main() {
 	http.HandleFunc("/", Hello)
+	http.HandleFunc("/departments", GetAllDepartments)
 }
 
 
