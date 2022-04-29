@@ -35,5 +35,6 @@ func CollectSubCategories(category types.Category) []types.SubCategory {
 		})
 	})
 
+	collector.Visit(category.Url)
 	return SubCategories
 }
