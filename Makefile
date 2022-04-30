@@ -11,4 +11,4 @@ add:
 	git remote add origin https://alagha-go:[token]@github.com/alagha-go/amazon.git
 
 test:
-	go test && go test ./lib/crawler ./lib/handler
+	go test ./lib/crawler ./lib/handler

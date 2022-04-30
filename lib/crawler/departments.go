@@ -19,8 +19,7 @@ func GetDepartments() []types.Department {
 
 	collector.OnHTML("body", func(element *colly.HTMLElement) {
 		element.ForEach(".hmenu.hmenu-translateX-right", func(index int, element *colly.HTMLElement) {
-			department := GetSubCategories(GetDepartment(element))
-			Departments = append(Departments, department)
+			Departments = append(Departments, GetDepartment(element))
 		})
 	})
 
