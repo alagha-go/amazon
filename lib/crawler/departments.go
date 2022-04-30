@@ -2,6 +2,7 @@ package crawler
 
 import (
 	"amazon/lib/types"
+	"strings"
 
 	"github.com/gocolly/colly"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -35,7 +36,10 @@ func GetDepartment(element *colly.HTMLElement) types.Department {
 			var category types.Category
 			category.ID = primitive.NewObjectID()
 			category.Title = element.Text
-			category.Url = "https://amazon.com" + element.Attr("href")
+			url := element.Attr("href")
+			if !strings.Contains(url, "https://amazon.com"){
+				category.Url = "https://amazon.com" + url
+			}
 			Department.Categories = append(Department.Categories, category)
 		}else if index == 1 {
 			Department.Title = element.Text
