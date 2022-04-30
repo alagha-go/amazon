@@ -19,7 +19,10 @@ func GetDepartments() []types.Department {
 
 	collector.OnHTML("body", func(element *colly.HTMLElement) {
 		element.ForEach(".hmenu.hmenu-translateX-right", func(index int, element *colly.HTMLElement) {
-			Departments = append(Departments, GetDepartment(element))
+			department := GetDepartment(element)
+			if department.Title != "stream music" {
+				Departments = append(Departments, GetDepartment(element))
+			}
 		})
 	})
 
