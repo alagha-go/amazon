@@ -2,7 +2,6 @@ package crawler
 
 import (
 	"amazon/lib/types"
-	"fmt"
 	"encoding/json"
 	"io/ioutil"
 	"testing"
@@ -11,7 +10,6 @@ import (
 
 func TestSubCategories(t *testing.T) {
 	var passed bool
-	var passedNo int
 	var departments []types.Department
 	data, err := ioutil.ReadFile("/home/ubuntu/Documents/amazon/testData/deps.json")
 	HandleError(err)
@@ -21,16 +19,13 @@ func TestSubCategories(t *testing.T) {
 		department = GetSubCategories(department)
 		if len(department.Categories[0].SubCategories) > 0 {
 			passed = true
-			passedNo++
 		}
 		departments[index] = department
 	}
-	data = JsonMarshal(departments)
-	ioutil.WriteFile("/home/ubuntu/Documents/amazon/testData/deps.json", data, 0755)
-
+	
 	if !passed {
 		t.Error("failed to collect subcategories")
-	}else{
-		fmt.Println(passedNo)
 	}
+	data = JsonMarshal(departments)
+	ioutil.WriteFile("/home/ubuntu/Documents/amazon/testData/deps.json", data, 0755)
 }
