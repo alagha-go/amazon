@@ -39,12 +39,14 @@ func GetDepartment(element *colly.HTMLElement) types.Department {
 			category.ID = primitive.NewObjectID()
 			category.Title = element.Text
 			url := element.Attr("href")
-			if !strings.Contains(url, "https://"){
-				category.Url = "https://amazon.com" + url
-			}else {
-				category.Url = url
+			if url != "" {
+				if !strings.Contains(url, "https://"){
+					category.Url = "https://amazon.com" + url
+				}else {
+					category.Url = url
+				}
+				Department.Categories = append(Department.Categories, category)
 			}
-			Department.Categories = append(Department.Categories, category)
 		}else if index == 1 {
 			Department.Title = element.Text
 		}
