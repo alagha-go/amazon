@@ -1,10 +1,9 @@
 package crawler
 
 import (
-	"amazon/lib/types"
+	department"amazon/lib/departments"
 	"bytes"
 	"log"
-	"context"
 	"encoding/json"
 	"time"
 )
@@ -34,25 +33,12 @@ func GetAllDepartments() {
 		}
 	}
 
-	err := InsertToDB(departments)
+	err := department.InsertToDB(departments)
 	if err != nil {
 		GetAllDepartments()
 	}
 }
 
-
-func InsertToDB(departments []types.Department) error {
-	var documents []interface{}
-	ctx := context.Background()
-	collection := types.Client.Database("Amazon").Collection("Departments")
-
-	for _, department := range departments {
-		documents = append(documents, department)
-	}
-
-	_, err := collection.InsertMany(ctx, documents)
-	return err
-}
 
 func JsonMarshal(data interface{}) []byte {
 	var buff bytes.Buffer
