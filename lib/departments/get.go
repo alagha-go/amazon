@@ -11,18 +11,18 @@ import (
 )
 
 
-func GetDepartments() ([]byte, int, types.Error) {
+func GetDepartments() ([]byte, int) {
 	var departments []types.Department
 	ctx := context.Background()
 	collection := types.Client.Database("Amazon").Collection("Departments")
 
 	cursor, err := collection.Find(ctx, bson.M{})
 	if err != nil {
-		return nil, 500, types.CouldNotRetrieveData
+		return JsonMarshal(types.CouldNotRetrieveData), 500
 	}
 	cursor.All(ctx, &departments)
 
-	return JsonMarshal(departments), 200, types.Error{}
+	return JsonMarshal(departments), 200
 }
 
 func JsonMarshal(data interface{}) []byte {
