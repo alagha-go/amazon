@@ -1,6 +1,9 @@
 package handler
 
-import "net/http"
+import (
+	"net/http"
+	"log"
+)
 
 
 func Main() {
@@ -11,4 +14,10 @@ func Main() {
 
 func Hello(res http.ResponseWriter, req *http.Request) {
 	res.Write([]byte("<h1>Hello World!!!</h1>"))
+}
+
+func HandleError(err error) {
+	if err != nil {
+		log.Panic(err)
+	}
 }
