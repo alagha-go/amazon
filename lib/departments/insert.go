@@ -6,16 +6,10 @@ import (
 )
 
 
-func InsertToDB(departments []types.Department) error {
-	var documents []interface{}
+func InsertOneDepartment(department types.Department) error {
 	ctx := context.Background()
 	collection := types.Client.Database("Amazon").Collection("Departments")
 
-	for _, department := range departments {
-		documents = append(documents, department)
-	}
-
-	collection.Drop(ctx)
-	_, err := collection.InsertMany(ctx, documents)
+	_, err := collection.InsertOne(ctx, department)
 	return err
 }
