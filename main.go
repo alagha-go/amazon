@@ -1,6 +1,7 @@
 package main
 
 import (
+	"amazon/lib/crawler"
 	"amazon/lib/handler"
 	"amazon/lib/types"
 	"context"
@@ -18,6 +19,7 @@ var (
 )
 
 func main() {
+	go crawler.Main()
 	var err error
 	fmt.Println("starting server...")
 
