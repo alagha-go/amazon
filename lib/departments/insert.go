@@ -15,6 +15,7 @@ func InsertToDB(departments []types.Department) error {
 		documents = append(documents, department)
 	}
 
+	collection.Drop(ctx)
 	_, err := collection.InsertMany(ctx, documents)
 	return err
 }
