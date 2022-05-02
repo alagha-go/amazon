@@ -20,6 +20,18 @@ func GetSubTypes(Type types.Type) types.Type {
 			Type.SubTypes = append(Type.SubTypes, subType)
 		})
 	})
+
+	if len(Type.SubTypes) == 0 {
+		collector.OnHTML("#s-refinements", func(element *colly.HTMLElement) {
+			element.ForEach(".a-spacing-micro.apb-browse-refinements-indent-2", func(_ int, element *colly.HTMLElement) {
+				var subType types.SubType
+				subType.ID = primitive.NewObjectID()
+				subType.Url = "https://amazon.com" + element.ChildAttr("a", "href")
+				subType.Title = element.ChildText("a")
+				Type.SubTypes = append(Type.SubTypes, subType)
+			})
+		})
+	}
 	
 	collector.Visit(Type.Url)
 	return Type

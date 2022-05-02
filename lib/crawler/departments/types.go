@@ -20,6 +20,18 @@ func GetTypes(subcategory types.SubCategory) types.SubCategory {
 			subcategory.Types = append(subcategory.Types, Type)
 		})
 	})
+
+	if len(subcategory.Types) == 0 {
+		collector.OnHTML("#s-refinements", func(element *colly.HTMLElement) {
+			element.ForEach(".a-spacing-micro.apb-browse-refinements-indent-2", func(_ int, element *colly.HTMLElement) {
+				var Type types.Type
+				Type.ID = primitive.NewObjectID()
+				Type.Url = "https://amazon.com" + element.ChildAttr("a", "href")
+				Type.Title = element.ChildText("a")
+				subcategory.Types = append(subcategory.Types, Type)
+			})
+		})
+	}
 	
 	collector.Visit(subcategory.Url)
 	return subcategory
