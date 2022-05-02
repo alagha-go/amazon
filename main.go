@@ -30,7 +30,7 @@ func main() {
 
 	go handler.Main()
 
-	err = http.ListenAndServe(port, nil)
+	err = http.ListenAndServe(port, types.Router)
 	HandleError(err)
 }
 

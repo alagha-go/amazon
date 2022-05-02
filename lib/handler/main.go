@@ -1,14 +1,20 @@
 package handler
 
 import (
-	"net/http"
+	"amazon/lib/types"
+	"bytes"
+	"encoding/json"
 	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 
 func Main() {
-	http.HandleFunc("/", Hello)
-	http.HandleFunc("/departments", GetAllDepartments)
+	var Router *mux.Router = types.Router
+	Router.HandleFunc("/", Hello)
+	Router.HandleFunc("/departments", GetAllDepartments)
 }
 
 
@@ -20,4 +26,12 @@ func HandleError(err error) {
 	if err != nil {
 		log.Panic(err)
 	}
+}
+
+func JsonMarshal(data interface{}) []byte {
+	var buff bytes.Buffer
+	encoder := json.NewEncoder(&buff)
+	encoder.SetEscapeHTML(false)
+	encoder.Encode(data)
+	return buff.Bytes()
 }
