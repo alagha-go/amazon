@@ -1,4 +1,4 @@
-package crawler
+package departments
 
 import (
 	"amazon/lib/types"
@@ -8,21 +8,25 @@ import (
 )
 
 
-func TestSubCategories(t *testing.T) {
+func TestGetTypes(t *testing.T) {
 	var passed bool
 	var departments []types.Department
 	data, err := ioutil.ReadFile("/home/ubuntu/Documents/amazon/testData/deps.json")
 	HandleError(err)
 	err = json.Unmarshal(data, &departments)
 	HandleError(err)
-	for index, department := range departments {
-		department = GetSubCategories(department)
-		if len(department.Categories[0].SubCategories) > 0 {
-			passed = true
+
+	for dindex, department := range departments {
+		for cindex, category := range department.Categories {
+			for sindex, subcategory := range category.SubCategories {
+				departments[dindex].Categories[cindex].SubCategories[sindex] = GetTypes(subcategory)
+				if len(departments[dindex].Categories[cindex].SubCategories[sindex].Types) > 0 {
+					passed = true
+				}
+			}
 		}
-		departments[index] = department
 	}
-	
+
 	if !passed {
 		t.Error("failed to collect subcategories")
 	}

@@ -1,4 +1,4 @@
-package crawler
+package departments
 
 import (
 	"io/ioutil"
