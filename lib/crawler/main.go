@@ -14,7 +14,10 @@ import (
 func Main() {
 	for {
 		CollectAllDepartments()
-		time.Sleep(72*time.Hour)
+		for index:=0; index<5; index++ {
+			UpdateDepartments()
+		} 
+		time.Sleep(720*time.Hour)
 	}
 }
 
