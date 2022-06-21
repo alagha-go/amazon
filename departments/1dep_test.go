@@ -11,7 +11,7 @@ import (
 func TestDepartments(t *testing.T) {
 	deps := GetDepartments()
 	if len(deps) < 1 {
-		t.Error("error getting amazon departments")
+		t.Error("failed to get amazon departments")
 	}else {
 		data := JsonMarshal(deps)
 		err := ioutil.WriteFile("../DB/deps.json", data, 0755)
