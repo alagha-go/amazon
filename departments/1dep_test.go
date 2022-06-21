@@ -14,7 +14,7 @@ func TestDepartments(t *testing.T) {
 		t.Error("error getting amazon departments")
 	}else {
 		data := JsonMarshal(deps)
-		err := ioutil.WriteFile("./DB/deps.json", data, 0755)
+		err := ioutil.WriteFile("../DB/deps.json", data, 0755)
 		HandleError(err)
 	}
 }
