@@ -1,4 +1,4 @@
-package departments
+package crawler
 
 
 type Department struct {

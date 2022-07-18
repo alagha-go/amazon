@@ -1,2 +1,2 @@
 test:
-	go test ./departments
+	go test -p 1 ./departments

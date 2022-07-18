@@ -1,4 +1,4 @@
-package departments
+package crawler
 
 import (
 	"encoding/json"
@@ -8,6 +8,7 @@ import (
 
 
 func TestSubCategories(t *testing.T) {
+	println("called Test2")
 	var passed bool
 	var departments []Department
 	data, err := ioutil.ReadFile("../DB/deps.json")
@@ -29,7 +30,7 @@ func TestSubCategories(t *testing.T) {
 	
 	if !passed {
 		t.Error("failed to collect subcategories")
+		data = JsonMarshal(departments)
+		ioutil.WriteFile("../DB/deps.json", data, 0755)
 	}
-	data = JsonMarshal(departments)
-	ioutil.WriteFile("../DB/deps.json", data, 0755)
 }

@@ -1,4 +1,4 @@
-package departments
+package crawler
 
 import (
 	"bytes"
@@ -9,6 +9,7 @@ import (
 )
 
 func TestDepartments(t *testing.T) {
+	println("called Test1")
 	deps := GetDepartments()
 	if len(deps) < 1 {
 		t.Error("failed to get amazon departments")
